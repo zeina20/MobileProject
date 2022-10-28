@@ -71,19 +71,19 @@ Container(
   
             ),
 ),
-    // Container(
-    // child: Image.asset(
-    //           'assets/images/a.jpg',
-    //           height: 150,
-    //           width: 150,
-    //         ),
-    // ),
-    // Container(
-    // child: Text("${L.elementAt(0).name}"),
-    // ),
-    // Container(
-    // child: Text("${L.elementAt(0).email}"),
-    // ),
+    Container(
+     child: Image.asset(
+               'assets/images/a.jpg',
+               height: 150,
+               width: 150,
+             ),
+     ),
+     Container(
+     child: Text("${L.elementAt(0).name}"),
+     ),
+     Container(
+     child: Text("${L.elementAt(0).email}"),
+     ),
       ],
     ),
   );
