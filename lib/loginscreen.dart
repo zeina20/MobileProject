@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/model/loginModel.dart';
+import 'package:MobileProject/model/loginModel.dart';
 
 class loginscreen extends StatelessWidget
 {

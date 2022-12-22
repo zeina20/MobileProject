@@ -35,8 +35,28 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+
   }
 
+  Widget Address() {
+    return Container(
+      margin: EdgeInsets.only(left: 30, right: 30),
+      child: TextFormField(
+        controller: _controller3,
+        validator: ((value) {
+          if (value!.isEmpty || !RegExp(r'^[\w]+$').hasMatch(value)) {
+            return "Enter your name correctly";
+          } else
+            return null;
+        }),
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: "Adress",
+          hintText: "Adress",
+        ),
+      ),
+    );
+  }
   Widget email() {
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30),
@@ -147,6 +167,10 @@ class _SignUpState extends State<SignUp> {
                 height: 30,
               ),
               Name(),
+              SizedBox(
+                height: 30,
+              ),
+               Address(),
               SizedBox(
                 height: 30,
               ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:MobileProject/Films.dart';
+import 'package:MobileProject/model/movies_data.dart';
 
 
 import 'Login.dart';
@@ -19,30 +21,39 @@ class CinemaPage1 extends StatelessWidget {
               height: 85,
              child: DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Color(0xFF363f93),
               ),
               child: Text('Menu'),
             ),
             ),
+            if(!MoviesData.isLoggedIn)
             ListTile(
               title: const Text('SignIn'),
               onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
                         },
             ),
+            if(!MoviesData.isLoggedIn)
             ListTile(
               title: const Text('SignUp'),
                onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUp()));
                         },
             ),
+            if(MoviesData.isLoggedIn)
+            ListTile(
+              title: const Text('Log out'),
+               onTap: () {
+                          MoviesData.isLoggedIn = false;
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => CinemaPage1()));
+                        },
+            ),
           ],
         ),
       ),
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor: Color(0xFF363f93),),
       body: SingleChildScrollView(
           child: Container(
-        padding: EdgeInsets.only(top: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,51 +61,52 @@ class CinemaPage1 extends StatelessWidget {
             InkWell(
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => LoginPage()));
+                    context, MaterialPageRoute(builder: (_) => FilmPage1()));
               },
           child: 
-             Stack(children: [
+             Stack(
+              alignment: Alignment.center,
+              children: [
                 Container(
                   height: 200,
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
                       color: Colors.grey,
                       image: DecorationImage(
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                           image: AssetImage(
                               "assets/images/p90.jfif"))),
-                  padding: const EdgeInsets.all(8),
                 ),
-                Positioned(top: 70, left: 145,
-                  child: Text(
-                    "Point 90",
+                Text("Point 90",
                     style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
                   ),
-                ),
                 
               ]),
             ),
-               Divider(),
-              Stack(children: [
+              InkWell(
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => FilmPage1()));
+              },
+          child: Stack(
+                alignment: Alignment.center,
+                children: [
                 Container(
                   height: 200,
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
                       color: Colors.grey,
                       image: DecorationImage(
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                           image: AssetImage(
                               "assets/images/center.jfif"))),
-                  padding: const EdgeInsets.all(8),
                 ),
-                Positioned(top: 70, left: 125,
-                  child: Text(
+                Text(
                     "City Center",
                     style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
-                  ),
                 ),
                 
-              ]),
+              ]),),
 
           //   Divider(),
           //   Image.asset("assets/images/a.jpg"),
@@ -108,30 +120,37 @@ class CinemaPage1 extends StatelessWidget {
           //   Image.asset("assets/images/a.jpg"),
           //   Divider(),
           //   Image.asset("assets/images/a.jpg"),
-            Divider(),
-              Stack(children: [
+           
+              InkWell(
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => FilmPage1()));
+              },
+          child: Stack(
+                alignment: Alignment.center,
+                children: [
                 Container(
                   height: 200,
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
                       color: Colors.grey,
                       image: DecorationImage(
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                           image: AssetImage(
                               "assets/images/cairo.jfif"))),
-                  padding: const EdgeInsets.all(8),
                 ),
-                Positioned(top: 70, left: 115,
-                  child: Text(
+                Text(
                     "Cairo Festival ",
                     style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
                   ),
-              ),
-                 ]),
-
-
-              Divider(),
-              Stack(children: [
+                 ]),),
+              InkWell(
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => FilmPage1()));
+              },
+          child: Stack(alignment: Alignment.center,
+              children: [
                 Container(
                   height: 200,
                   width: MediaQuery.of(context).size.width,
@@ -141,16 +160,13 @@ class CinemaPage1 extends StatelessWidget {
                           fit: BoxFit.fill,
                           image: AssetImage(
                               "assets/images/arabia.jpg"))),
-                  padding: const EdgeInsets.all(8),
                 ),
-                Positioned(top: 70, left: 115,
-                  child: Text(
+                Text(
                     "Mall Of Arabia",
                     style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
                   ),
-                ),
                 
-              ]),
+              ]),),
               
           ],
         ),

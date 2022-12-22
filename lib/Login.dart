@@ -1,6 +1,8 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
-import 'package:project/main.dart';
+import 'package:MobileProject/main.dart';
+import 'package:MobileProject/model/movies_data.dart';
+import 'Cinema.dart';
 import 'HomePage.dart';
 import 'SignUp.dart';
 
@@ -77,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: 
-              (_)=>MyHomePage()),
+              (_)=>CinemaPage1()),
               (route)=>false);
           },
           icon:Icon(Icons.arrow_back)),   
@@ -119,34 +121,23 @@ class _LoginPageState extends State<LoginPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            TextButton(
-                                style: TextButton.styleFrom(
-                                    primary: Colors.white,
-                                    shadowColor: Colors.white,
-                                    side: BorderSide.none),
-                                onPressed: () {},
-                                child: Text(
-                                  "Sign In",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                )),
-                            SizedBox(
-                              width: 201,
-                            ),
+                            
                             FloatingActionButton(
                                 child: Icon(Icons.east),
                                 backgroundColor:
                                     Color.fromARGB(255, 58, 7, 139),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    // final snackbar = SnackBar(
-                                    //   content: Text(
-                                    //       "Email ${_controller1.value.text} "),
-                                    // );
-                                    // ScaffoldMessenger.of(context)
-                                    //     .showSnackBar(snackbar);
-                                    var snackBar = SnackBar(
+                                    for(int i = 0 ; i < MoviesData.users.length ; i++){
+                                     if(MoviesData.users[i][2].toString().toLowerCase() == _controller1.text.toString().toLowerCase() && MoviesData.users[i][3].toString().toLowerCase() == _controller2.text.toString().toLowerCase()){
+                                      MoviesData.isLoggedIn = true;
+                                    }
+                                    print(i);
+                                    }
+                                    print(MoviesData.isLoggedIn);
+                                    if(MoviesData.isLoggedIn){
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => CinemaPage1()));
+                                        var snackBar = SnackBar(
                                       elevation: 0,
                                       behavior: SnackBarBehavior.floating,
                                       backgroundColor: Colors.transparent,
@@ -161,6 +152,9 @@ class _LoginPageState extends State<LoginPage> {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(snackBar);
                                   }
+                                  }
+                                    
+                                    
                                 }),
                           ],
                         ),
