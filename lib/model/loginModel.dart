@@ -8,9 +8,3 @@ class Loginmodel{
   Loginmodel({required this.name,required this.email}){}
 }
 
-List<Loginmodel> L = 
-[ Loginmodel(
-    name: "Marwan Maged",
-    email: "Marwan@gmail.com",
-  ),
-];

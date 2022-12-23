@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:MobileProject/AdamDescription.dart';
-import 'package:MobileProject/MemoryDescription.dart';
-import 'package:MobileProject/SmileDescription.dart';
-import 'BlackAdam.dart';
-import 'Cinema.dart';
-import 'Films.dart';
-import 'HomePage.dart';
-import 'LeageueDescription.dart';
-import 'Login.dart';
+
+import 'view/Cinema.dart';
+
 
 void main() {
   runApp(const MyApp());
