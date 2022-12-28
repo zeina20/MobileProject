@@ -2,9 +2,11 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:MobileProject/main.dart';
 import 'package:MobileProject/data/movies_data.dart';
+import 'package:go_router/go_router.dart';
 import 'Cinema.dart';
 import 'HomePage.dart';
 import 'SignUp.dart';
+import 'home.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -74,14 +76,10 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         leading:IconButton(
-          onPressed: (){
 
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: 
-              (_)=>CinemaPage1()),
-              (route)=>false);
-          },
+          onPressed: () =>
+           GoRouter.of(context).go('/')
+          ,
           icon:Icon(Icons.arrow_back)),   
            
           
@@ -136,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                                     }
                                     print(MoviesData.isLoggedIn);
                                     if(MoviesData.isLoggedIn){
-                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => CinemaPage1()));
+                                        
                                         var snackBar = SnackBar(
                                       elevation: 0,
                                       behavior: SnackBarBehavior.floating,
@@ -151,9 +149,10 @@ class _LoginPageState extends State<LoginPage> {
 
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(snackBar);
+                                        
                                   }
                                   }
-                                    
+                                   
                                     
                                 }),
                           ],
@@ -168,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             TextButton(
                                 onPressed: () {
-                                  NavigateToSignUp(context);
+                                 GoRouter.of(context).go('/signup');
                                 },
                                 child: Text(
                                   "Sign Up",
@@ -193,8 +192,5 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void NavigateToSignUp(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => SignUp()));
-  }
+
 }

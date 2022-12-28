@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'Login.dart';
 
@@ -146,9 +147,9 @@ class _SignUpState extends State<SignUp> {
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                   FloatingActionButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+                    onPressed: () =>
+                      GoRouter.of(context).go('/'),
+                    
                     child: Icon(Icons.west),
                   ),
                 ]),
@@ -191,9 +192,9 @@ class _SignUpState extends State<SignUp> {
                 child: Row(
                   children: [
                     TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
-                        },
+                        onPressed: () =>
+                          GoRouter.of(context).go('/login'),
+                        
                         child: Text(
                           "Sign In",
                           style: TextStyle(fontSize: 20, color: Colors.white),
