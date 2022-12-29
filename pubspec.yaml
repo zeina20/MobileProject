@@ -39,7 +39,8 @@ dependencies:
   go_router: ^6.0.0
   google_fonts: ^3.0.1
   firebase_core: ^2.4.0
-
+  cloud_firestore: ^4.2.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

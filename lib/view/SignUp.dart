@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import '../services/user_services.dart';
 import 'Login.dart';
 
 class SignUp extends StatefulWidget {
@@ -14,7 +14,7 @@ class _SignUpState extends State<SignUp> {
   var _formKey1 = GlobalKey<FormState>();
 
   var _controller3 = TextEditingController();
-
+  var _controller7 = TextEditingController();
   var _controller4 = TextEditingController();
   var _controller5 = TextEditingController();
   var _controller6 = TextEditingController();
@@ -36,17 +36,16 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
-
   }
 
   Widget Address() {
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30),
       child: TextFormField(
-        controller: _controller3,
+        controller: _controller7,
         validator: ((value) {
           if (value!.isEmpty || !RegExp(r'^[\w]+$').hasMatch(value)) {
-            return "Enter your name correctly";
+            return "Enter your address correctly";
           } else
             return null;
         }),
@@ -58,6 +57,7 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
+
   Widget email() {
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30),
@@ -106,7 +106,7 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-   Widget PhoneNumber() {
+  Widget PhoneNumber() {
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30),
       child: TextFormField(
@@ -141,15 +141,18 @@ class _SignUpState extends State<SignUp> {
           child: Form(
             key: _formKey1,
             child: Column(children: [
+              Image.asset(
+                "assets/images/signup.jpg",
+                height: 200,
+                width: double.infinity,
+              ),
               SizedBox(height: 20),
               Container(
                 margin: EdgeInsets.only(left: 10),
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                   FloatingActionButton(
-                    onPressed: () =>
-                      GoRouter.of(context).go('/'),
-                    
+                    onPressed: () => GoRouter.of(context).go('/'),
                     child: Icon(Icons.west),
                   ),
                 ]),
@@ -171,7 +174,7 @@ class _SignUpState extends State<SignUp> {
               SizedBox(
                 height: 30,
               ),
-               Address(),
+              Address(),
               SizedBox(
                 height: 30,
               ),
@@ -192,9 +195,7 @@ class _SignUpState extends State<SignUp> {
                 child: Row(
                   children: [
                     TextButton(
-                        onPressed: () =>
-                          GoRouter.of(context).go('/login'),
-                        
+                        onPressed: () => GoRouter.of(context).go('/login'),
                         child: Text(
                           "Sign In",
                           style: TextStyle(fontSize: 20, color: Colors.white),
@@ -207,6 +208,17 @@ class _SignUpState extends State<SignUp> {
                         backgroundColor: Colors.black45,
                         onPressed: () {
                           if (_formKey1.currentState!.validate()) {
+                            final String newName = _controller3.text;
+                            final String newEmail = _controller4.text;
+                            final String newAddress = _controller7.text;
+                            final String newPhone = _controller6.text;
+                            final String newPassword = _controller5.text;
+                            createUser(
+                                name: newName,
+                                email: newEmail,
+                                address: newAddress,
+                                phone: newPhone,
+                                password: newPassword);
                             SnackBar snackbar = SnackBar(
                                 content: Text(
                                     "Name ${_controller3.value.text} \n email ${_controller4.value.text}"));
@@ -214,6 +226,7 @@ class _SignUpState extends State<SignUp> {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackbar);
                           }
+                          //print(_controller3);
                         }),
                   ],
                 ),

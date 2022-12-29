@@ -7,12 +7,12 @@ import 'view/SignUp.dart';
 import 'view/description.dart';
 import 'view/detail.dart';
 import 'view/home.dart';
-
-
+import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class MyApp extends StatelessWidget {
   //*app routing
-final GoRouter router = GoRouter(
+  final GoRouter router = GoRouter(
     routes: <GoRoute>[
       GoRoute(
         path: '/',
@@ -24,13 +24,13 @@ final GoRouter router = GoRouter(
               builder: (BuildContext context, GoRouterState state) =>
                   Detail() //index:state.params["index"]),
               ),
-              GoRoute(
+          GoRoute(
               // path: 'Detail/:index',
               path: 'signup',
               builder: (BuildContext context, GoRouterState state) =>
                   SignUp() //index:state.params["index"]),
               ),
-              GoRoute(
+          GoRoute(
               // path: 'Detail/:index',
               path: 'login',
               builder: (BuildContext context, GoRouterState state) =>
@@ -56,15 +56,12 @@ final GoRouter router = GoRouter(
     ],
   );
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: router,
-    
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-      
         primaryColor: Color.fromARGB(255, 224, 224, 224),
         scaffoldBackgroundColor: Color(0xFFF1F1F1),
         splashColor: Color(0xFFF3A953),
@@ -79,6 +76,12 @@ final GoRouter router = GoRouter(
   }
 }
 
-  void main() {
-    runApp(MyApp());
-  }
+// void main() {
+//   runApp(MyApp());
+// }
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
+  runApp(MyApp());
+}
