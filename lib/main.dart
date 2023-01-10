@@ -1,3 +1,4 @@
+import 'package:MobileProject/view/booking/booking_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'firebase_options.dart';
@@ -9,6 +10,7 @@ import 'view/detail.dart';
 import 'view/home.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 
 class MyApp extends StatelessWidget {
   //*app routing
@@ -36,6 +38,12 @@ class MyApp extends StatelessWidget {
               builder: (BuildContext context, GoRouterState state) =>
                   LoginPage() //index:state.params["index"]),
               ),
+              GoRoute(
+              // path: 'Detail/:index',
+              path: 'Booking/:title',
+              builder: (BuildContext context, GoRouterState state) =>
+                  BookingScreen(title:state.params["title"]) //index:state.params["index"]),
+              ),
           GoRoute(
             // path: 'Detail/:index',
             path: 'description/:index',
@@ -48,7 +56,7 @@ class MyApp extends StatelessWidget {
           //   name: 'home',
           //   builder: (context, state) => HomePage(
           //       selectedIndex: int.parse(state.params["selectedIndex"]!),
-
+        
           // ),
           // ),
         ],

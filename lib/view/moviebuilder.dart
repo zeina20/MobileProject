@@ -114,7 +114,7 @@ class moviebuilder extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.w500),
                           ),
-                          onPressed: () {},
+                          onPressed: () => GoRouter.of(context).go('/Booking/$title'),
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Color(0xFFF05454)),
                           icon: Icon(
