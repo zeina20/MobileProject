@@ -27,14 +27,15 @@ class Homes extends StatelessWidget {
             children: [
               ListTile(
                 title: const Text('Sign Up'),
-                onTap: () 
-                  => GoRouter.of(context).go('/signup'),
-                
+                onTap: () => GoRouter.of(context).go('/signup'),
               ),
               ListTile(
                 title: const Text('Login'),
                 onTap: () => GoRouter.of(context).go('/login'),
-
+              ),
+              ListTile(
+                title: const Text('Admin'),
+                onTap: () => GoRouter.of(context).go('/postadmin'),
               ),
             ],
           ),
