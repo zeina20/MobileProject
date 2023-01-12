@@ -1,3 +1,4 @@
+import 'package:MobileProject/view/userProfile.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:MobileProject/main.dart';
@@ -129,7 +130,16 @@ class _LoginPageState extends State<LoginPage> {
                                     for(int i = 0 ; i < MoviesData.users.length ; i++){
                                      if(MoviesData.users[i][2].toString().toLowerCase() == _controller1.text.toString().toLowerCase() && MoviesData.users[i][3].toString().toLowerCase() == _controller2.text.toString().toLowerCase()){
                                       MoviesData.isLoggedIn = true;
-                                    }
+
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) => userProfile(),
+                                          ),
+                                        );
+                                 
+                    //  return GoRouter.of(context).go('/userprofile');
+                   
+                                  }
                                     print(i);
                                     }
                                     print(MoviesData.isLoggedIn);
@@ -182,6 +192,10 @@ class _LoginPageState extends State<LoginPage> {
                                   "Forget Password",
                                   style: TextStyle(color: Colors.black),
                                 )),
+                                 FloatingActionButton(
+                    onPressed: () => GoRouter.of(context).go('/userprofile'),
+                    child: Icon(Icons.east),
+                  ),
                           ],
                         ),
                       ),
