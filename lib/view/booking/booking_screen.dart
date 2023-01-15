@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'components/pay_button.dart';
 import 'components/custom_app_bar.dart';
 import 'components/date_selector.dart';
 import 'components/location_text.dart';
 import 'components/pay_button.dart';
 import 'components/seat_selector.dart';
 import 'components/time_selector.dart';
+
 //import 'package:movie_ticket_app/constants/constants.dart';
 
 

@@ -1,4 +1,5 @@
 import 'package:MobileProject/view/booking/booking_screen.dart';
+import 'package:MobileProject/view/userProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'firebase_options.dart';
@@ -66,6 +67,12 @@ class MyApp extends StatelessWidget {
             builder: (BuildContext context, GoRouterState state) =>
                 Description(index: state.params["index"]),
           ),
+          GoRoute(
+              // path: 'Detail/:index',
+              path: 'userprofile',
+              builder: (BuildContext context, GoRouterState state) =>
+                  userProfile() //index:state.params["index"]),
+              ),
 
           // GoRoute(
           //     path: 'home/:selectedIndex',

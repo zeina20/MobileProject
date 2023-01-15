@@ -8,7 +8,7 @@
 PRODUCT_NAME = CBA;
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.project
+PRODUCT_BUNDLE_IDENTIFIER = com.cba.project
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2022 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2022 com.cba. All rights reserved.

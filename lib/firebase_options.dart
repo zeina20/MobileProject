@@ -67,7 +67,7 @@ class DefaultFirebaseOptions {
     projectId: 'cinema1booking1ticket',
     storageBucket: 'cinema1booking1ticket.appspot.com',
     iosClientId: '315837156940-bljru4aflmi4os6sfil38lteeklojev0.apps.googleusercontent.com',
-    iosBundleId: 'com.example.project',
+    iosBundleId: 'com.cba.project',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -77,6 +77,6 @@ class DefaultFirebaseOptions {
     projectId: 'cinema1booking1ticket',
     storageBucket: 'cinema1booking1ticket.appspot.com',
     iosClientId: '315837156940-bljru4aflmi4os6sfil38lteeklojev0.apps.googleusercontent.com',
-    iosBundleId: 'com.example.project',
+    iosBundleId: 'com.cba.project',
   );
 }

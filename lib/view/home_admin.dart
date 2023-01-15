@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../model/PostsAdmin.dart';
+import '../services/movie_services.dart';
 import '../services/posts_admin_services.dart';
 
 class HomeAdmin extends StatefulWidget {
@@ -66,6 +67,21 @@ class _AdminPageState extends State<HomeAdmin> {
             itemCount: posts.length,
             itemBuilder: (context, index) {
               return ListTile(
+                subtitle: Column(
+                  children: <Widget>[
+                    IconButton(
+                        color: Colors.blue,
+                        icon: const Icon(Icons.movie_creation_sharp),
+                        // Text('add'),
+                        onPressed: () {
+                          final String id = posts[index].id.toString();
+                          final String name = posts[index].name.toString();
+                          final String image = posts[index].imageThumbnailPath!;
+
+                          createMovie(id: id, name: name, image: image);
+                        })
+                  ],
+                ),
                 leading: CircleAvatar(
                     backgroundImage:
                         NetworkImage(posts[index].imageThumbnailPath!)),

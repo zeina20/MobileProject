@@ -156,7 +156,7 @@ return  Positioned(
                       });
                            },
                             icon: //Icon(
-                             ( seat? const Icon(Icons.close): const Icon(Icons.event_seat)),
+                             ( seat? const Icon(Icons.event_seat): const Icon(Icons.close)),
                         //menu[index].icon,
                         //size: 30,
 

@@ -33,6 +33,7 @@ class _SignUpState extends State<SignUp> {
           border: OutlineInputBorder(),
           labelText: "Name",
           hintText: "Name",
+          prefixIcon: Icon(Icons.person, color: Colors.indigo[800]),
         ),
       ),
     );
@@ -51,8 +52,9 @@ class _SignUpState extends State<SignUp> {
         }),
         decoration: InputDecoration(
           border: OutlineInputBorder(),
-          labelText: "Adress",
-          hintText: "Adress",
+          labelText: "Address",
+          hintText: "Address",
+          prefixIcon: Icon(Icons.home, color: Colors.indigo[800]),
         ),
       ),
     );
@@ -76,6 +78,7 @@ class _SignUpState extends State<SignUp> {
           border: OutlineInputBorder(),
           labelText: "Email",
           hintText: "email@gmail.com",
+          prefixIcon: Icon(Icons.email, color: Colors.indigo[800]),
         ),
       )),
     );
@@ -99,6 +102,7 @@ class _SignUpState extends State<SignUp> {
         decoration: InputDecoration(
           hintText: "Password",
           labelText: "Password",
+          prefixIcon: Icon(Icons.password, color: Colors.indigo[800]),
           border: OutlineInputBorder(),
           focusedBorder: OutlineInputBorder(),
         ),
@@ -121,6 +125,7 @@ class _SignUpState extends State<SignUp> {
           border: OutlineInputBorder(),
           labelText: "Phone Number",
           hintText: "Enter Your Number Here",
+          prefixIcon: Icon(Icons.phone, color: Colors.indigo[800]),
         ),
       ),
     );
@@ -129,6 +134,13 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => GoRouter.of(context).go('/'),
+            icon: Icon(Icons.arrow_back)),
+        title: Text('Signup Page'),
+        backgroundColor: Color(0xFF363f93),
+      ),
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -149,13 +161,8 @@ class _SignUpState extends State<SignUp> {
               SizedBox(height: 20),
               Container(
                 margin: EdgeInsets.only(left: 10),
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  FloatingActionButton(
-                    onPressed: () => GoRouter.of(context).go('/'),
-                    child: Icon(Icons.west),
-                  ),
-                ]),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start, children: []),
               ),
               SizedBox(
                 height: 30,

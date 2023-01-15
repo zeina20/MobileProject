@@ -1,3 +1,4 @@
+import 'package:MobileProject/view/userProfile.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:MobileProject/main.dart';
@@ -40,6 +41,7 @@ class _LoginPageState extends State<LoginPage> {
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: "Name@gmail.com",
+          prefixIcon: Icon(Icons.email, color: Colors.indigo[800]),
           labelText: "Email",
         ),
       ),
@@ -63,6 +65,7 @@ class _LoginPageState extends State<LoginPage> {
         // autovalidateMode: AutovalidateMode.always,
         decoration: InputDecoration(
           hintText: "Password",
+          prefixIcon: Icon(Icons.password, color: Colors.indigo[800]),
           labelText: "Password",
           border: OutlineInputBorder(),
           focusedBorder: OutlineInputBorder(),
@@ -75,15 +78,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading:IconButton(
-
-          onPressed: () =>
-           GoRouter.of(context).go('/')
-          ,
-          icon:Icon(Icons.arrow_back)),   
-           
-          
-        
+        leading: IconButton(
+            onPressed: () => GoRouter.of(context).go('/'),
+            icon: Icon(Icons.arrow_back)),
         title: Text('Login Page'),
         backgroundColor: Color(0xFF363f93),
       ),
@@ -119,41 +116,51 @@ class _LoginPageState extends State<LoginPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            
                             FloatingActionButton(
                                 child: Icon(Icons.east),
                                 backgroundColor:
                                     Color.fromARGB(255, 58, 7, 139),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    for(int i = 0 ; i < MoviesData.users.length ; i++){
-                                     if(MoviesData.users[i][2].toString().toLowerCase() == _controller1.text.toString().toLowerCase() && MoviesData.users[i][3].toString().toLowerCase() == _controller2.text.toString().toLowerCase()){
-                                      MoviesData.isLoggedIn = true;
-                                    }
-                                    print(i);
+                                    for (int i = 0;
+                                        i < MoviesData.users.length;
+                                        i++) {
+                                      if (MoviesData.users[i][2]
+                                                  .toString()
+                                                  .toLowerCase() ==
+                                              _controller1.text
+                                                  .toString()
+                                                  .toLowerCase() &&
+                                          MoviesData.users[i][3]
+                                                  .toString()
+                                                  .toLowerCase() ==
+                                              _controller2.text
+                                                  .toString()
+                                                  .toLowerCase()) {
+                                        MoviesData.isLoggedIn = true;
+                                      }
+                                      ;
+                                      print(i);
                                     }
                                     print(MoviesData.isLoggedIn);
-                                    if(MoviesData.isLoggedIn){
-                                        
-                                        var snackBar = SnackBar(
-                                      elevation: 0,
-                                      behavior: SnackBarBehavior.floating,
-                                      backgroundColor: Colors.transparent,
-                                      content: AwesomeSnackbarContent(
-                                        color: Colors.green,
-                                        title: 'Email',
-                                        message: "${_controller1.value.text}",
-                                        contentType: ContentType.failure,
-                                      ),
-                                    );
+                                    if (MoviesData.isLoggedIn) {
+                                      var snackBar = SnackBar(
+                                        elevation: 0,
+                                        behavior: SnackBarBehavior.floating,
+                                        backgroundColor: Colors.transparent,
+                                        content: AwesomeSnackbarContent(
+                                          color: Colors.green,
+                                          title: 'Email',
+                                          message: "${_controller1.value.text}",
+                                          contentType: ContentType.failure,
+                                        ),
+                                      );
 
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
-                                        
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    }
                                   }
-                                  }
-                                   
-                                    
+                                  GoRouter.of(context).go('/userprofile');
                                 }),
                           ],
                         ),
@@ -167,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             TextButton(
                                 onPressed: () {
-                                 GoRouter.of(context).go('/signup');
+                                  GoRouter.of(context).go('/signup');
                                 },
                                 child: Text(
                                   "Sign Up",
@@ -191,6 +198,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
-
 }
