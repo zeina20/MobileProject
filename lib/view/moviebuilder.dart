@@ -30,11 +30,16 @@ class moviebuilder extends StatelessWidget {
               alignment: Alignment.topCenter,
               children: <Widget>[
                 // movie cover positioning to fit the whole screen
-                Positioned(
-                  left: -size.width / 3,
-                  right: -size.width / 3,
-                  child: Image.asset('$image'),
-                ),
+                
+                //Positioned(
+              Container(
+                 width: MediaQuery.of(context).size.width  ,
+                 height: MediaQuery.of(context).size.height,
+                  child: Image(
+                    image: NetworkImage('$image'),
+                    fit: BoxFit.cover,
+                    ),
+               ),
                 // basic color
                 Container(
                   color: Color(0x66000000),
@@ -68,8 +73,7 @@ class moviebuilder extends StatelessWidget {
                             color: Colors.black,
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          child: Image.asset(
-                            '$image',
+                          child: Image(image: NetworkImage('$image'),
                             fit: BoxFit.cover,
                           ),
                         ),

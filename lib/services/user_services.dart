@@ -8,13 +8,12 @@ void createUser(
     required String phone,
     required String password}) async {
   final docUser = FirebaseFirestore.instance.collection('users').doc();
-  final user = User(
+  final user = Users(
       id: docUser.id,
       name: name,
       email: email,
       address: address,
-      phone: phone,
-      password: password);
+      phone: phone,);
   final json = user.toJson();
   await docUser.set(json);
 }

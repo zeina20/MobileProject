@@ -3,16 +3,15 @@ import 'package:MobileProject/view/userProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'firebase_options.dart';
-import 'view/Cinema.dart';
 import 'view/Login.dart';
 import 'view/SignUp.dart';
 import 'view/description.dart';
 import 'view/detail.dart';
+import 'view/fetchAllprofiles.dart';
 import 'view/home.dart';
 import 'firebase_options.dart';
 import 'view/UsersPage.dart';
 import 'view/home_admin.dart';
-import 'view/newFilm.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class MyApp extends StatelessWidget {

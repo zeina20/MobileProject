@@ -9,10 +9,12 @@ class SeatSelector extends StatefulWidget {
 }
 
 class _SeatSelectorState extends State<SeatSelector> {
-
+  bool seat = true;
   Widget _chairList(){
 
     Size size = MediaQuery.of(context).size;
+    
+      
   
     // 1 is free seats
     // 2 is selected seats
@@ -80,8 +82,8 @@ class _SeatSelectorState extends State<SeatSelector> {
       MenuData(Icons.event_seat, 'BC'),
       MenuData(Icons.event_seat, 'C4'),
     ];
-    Color _iconColor = Colors.black;
-      bool seat = true;
+
+    
 
 return  Positioned(
             top: 48,
@@ -131,50 +133,10 @@ return  Positioned(
                 crossAxisSpacing: 4.0,
                 mainAxisSpacing: 4.0),
             itemBuilder: (BuildContext context, int index) {
-              return Card(
-                
-                elevation: 0.2,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0)),
-                child: InkWell(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                     IconButton (
-                      
-                      color: _iconColor,
-                      
-                      onPressed: () {
-                        setState(() {
-                              if(seat){
-                                seat=false;
-                              }
-                              else{
-                                seat=true;
-                              }
-                      });
-                           },
-                            icon: //Icon(
-                             ( seat? const Icon(Icons.event_seat): const Icon(Icons.close)),
-                        //menu[index].icon,
-                        //size: 30,
+              return SeatSelectorWidget(menu[index].title);
 
-                     // ),
-                           
-                     ),
-                      SizedBox(height: 5),
-                      Text(
-                        menu[index].title,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.black87),
-                      )
-                    ],
-                  ),
-                ),
-              );
+
+
             },
           ),],),),),),), ],
             ),
@@ -208,4 +170,61 @@ return  Positioned(
   MenuData(this.icon, this.title);
   final IconData icon;
   final String title;
+}
+
+
+class SeatSelectorWidget extends StatefulWidget {
+  String menuTitle;
+
+  SeatSelectorWidget (this.menuTitle);
+
+  @override
+  _SeatSelectorWidgetState createState() => _SeatSelectorWidgetState();
+}
+
+class _SeatSelectorWidgetState extends State<SeatSelectorWidget> {
+  bool seat = true;
+
+  @override
+  Widget build(BuildContext context) {
+  
+        return Card(
+                
+                elevation: 0.2,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0)),
+                child: InkWell(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                     IconButton (
+                      
+                      color: seat ? Colors.black : Colors.yellow,
+                      
+                      onPressed: () {
+                        setState(() {
+                              seat = !seat;
+                      });
+                           },
+                            icon: const Icon(Icons.event_seat)
+                        //menu[index].icon,
+                        //size: 30,
+
+                     // ),
+                           
+                     ),
+                      SizedBox(height: 5),
+                      Text(
+                        widget.menuTitle,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.black87),
+                      )
+                    ],
+                  ),
+                ),
+              );
+  }
 }

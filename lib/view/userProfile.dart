@@ -1,11 +1,26 @@
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as p;
+import 'package:firebase_auth/firebase_auth.dart';
 
+import '../services/user_data.dart';
 
   // @override
   // State<SignUp> createState() => _SignUpState();
 
-class userProfile extends StatelessWidget {
+class userProfile extends StatefulWidget {
+  @override
+  State<userProfile> createState() => _userProfileState();
+}
+class _userProfileState extends State<userProfile> {
+ File? _image;
+  late String _url;
+ 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -50,7 +65,7 @@ class userProfile extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.topCenter,
                               child: Text(
-                                'Mariam Galal',
+                                LoggedInUserData.userName,
                                 style: TextStyle(
                                   color: Color(0xffBDBDBD),
                                   fontSize: 25,
@@ -66,28 +81,25 @@ class userProfile extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          // CircleAvatar(
-                          //   radius: 30,
-                          //   backgroundColor: Color(0xffD8D8D8),
-                          //   child: Icon(
-                          //     Icons.edit,
-                          //     size: 30,
-                          //     color: Color(0xff6E6E6E),
-                          //   ),
-                          // ),
+                         GestureDetector(
+                              onTap: pickImage, child: Icon(Icons.camera_alt)),
                           CircleAvatar(
                             radius: 70,
-                            // child: AssetImage("dp.png"),
-                            backgroundImage:  NetworkImage("https://cdn-icons-png.flaticon.com/512/219/219969.png")
-                            // AssetImage("assets/images/dp.png"),
+                            backgroundImage:  _image == null ? null : FileImage(_image!)
                           ),
-                          // SizedBox( height:60, width:60, child:
-                          // FloatingActionButton(onPressed: null ,child: Text("    dp  change"))),
-                        //TextButton(onPressed: null, child: Text("change picture"))
+                          
                         CircleAvatar(radius: 30,
                             backgroundColor: Color(0xffD8D8D8),
-                          child: IconButton(onPressed: null, icon: Icon(Icons.edit) ))
-                        
+                          child: IconButton(onPressed: null, icon: Icon(Icons.edit) )),
+                       
+                        Builder(
+                            builder: (context) => ElevatedButton(
+                              onPressed: () {
+                                uploadImage(context);
+                              },
+                              child: Text('Upload Image'),
+                            ),
+                          ),
                         ],
                          
                       ),
@@ -111,7 +123,7 @@ class userProfile extends StatelessWidget {
                             height: 40,
                           ),
                           Text(
-                            'nat@gmail.com',
+                            LoggedInUserData.userEmail,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -134,7 +146,7 @@ class userProfile extends StatelessWidget {
                             height: 40,
                           ),
                           Text(
-                            'sheraton',
+                            LoggedInUserData.userAddress,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -159,7 +171,7 @@ class userProfile extends StatelessWidget {
                             height: 40,
                           ),
                           Text(
-                            '017584620',
+                            LoggedInUserData.userPhoneNumber,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -199,4 +211,42 @@ class userProfile extends StatelessWidget {
       ),
     );
   }
+
+ void pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+    var pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      //converting from xfile to file
+      _image = File(pickedFile!.path);
+    });
+  }
+
+  void uploadImage(context) async {
+    try {
+     var name =LoggedInUserData.userName;
+       Reference ref = FirebaseStorage.instance.ref().child("images/$name");
+     //Reference ref = FirebaseStorage.instance.ref().child("images/mariammm");
+      UploadTask uploadTask = ref.putFile(_image!);
+      TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+      SnackBar snackbar = SnackBar(content: Text('success'));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+
+      String url = await taskSnapshot.ref.getDownloadURL();
+      print('url $url');
+      setState(() {
+        // FirebaseFirestore.instance
+        //     .collection('users')
+        //     .doc(uid)
+        //     .update({'image_url': url});
+        _url = url;
+      });
+    } catch (ex) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(ex.toString())),
+      );
+    }
+  }
 }
+
+
+

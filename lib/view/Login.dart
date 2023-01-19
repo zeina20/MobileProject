@@ -1,11 +1,15 @@
+import 'dart:convert';
+
+import 'package:MobileProject/services/movies_data_services.dart';
+import 'package:MobileProject/services/user_data.dart';
 import 'package:MobileProject/view/userProfile.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:MobileProject/main.dart';
 import 'package:MobileProject/data/movies_data.dart';
 import 'package:go_router/go_router.dart';
-import 'Cinema.dart';
-import 'HomePage.dart';
 import 'SignUp.dart';
 import 'home.dart';
 
@@ -53,15 +57,15 @@ class _LoginPageState extends State<LoginPage> {
       margin: EdgeInsets.symmetric(horizontal: 30),
       child: TextFormField(
         validator: (value) {
-          if (value!.isEmpty ||
-              !(RegExp(r'^[a-z A-Z]{1}[\w]*$')).hasMatch(value)) {
+          if (value!.isEmpty) {
             return ("Enter Correct Password");
           } else {
             return null;
           }
         },
         controller: _controller2,
-        maxLines: 2,
+        obscureText: true,
+        maxLines: 1,
         // autovalidateMode: AutovalidateMode.always,
         decoration: InputDecoration(
           hintText: "Password",
@@ -160,7 +164,8 @@ class _LoginPageState extends State<LoginPage> {
                                           .showSnackBar(snackBar);
                                     }
                                   }
-                                  GoRouter.of(context).go('/userprofile');
+                                  //GoRouter.of(context).go('/userprofile');
+                                  logIn();
                                 }),
                           ],
                         ),
@@ -197,5 +202,30 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  Future logIn() async {
+    try {
+      UserCredential authusers =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _controller1.text,
+        password: _controller2.text,
+      );
+
+      LoggedInUserData.userID = authusers.user!.uid;
+      var docSnapshot = await FirebaseFirestore.instance.collection('users').doc(LoggedInUserData.userID).get();
+      if (docSnapshot.exists) {
+        Map<String, dynamic>? data = docSnapshot.data();
+        LoggedInUserData.userID = data?['id'];
+        LoggedInUserData.userName = data?['name'];
+        LoggedInUserData.userPhoneNumber = data?['phone'];
+        LoggedInUserData.userEmail = data?['email'];
+        LoggedInUserData.userAddress = data?['address'];
+      }
+
+      GoRouter.of(context).go('/userprofile');
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
   }
 }

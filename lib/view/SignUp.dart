@@ -1,7 +1,11 @@
+import 'package:MobileProject/services/user_data.dart';
+import 'package:MobileProject/services/users_services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../services/user_services.dart';
 import 'Login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -24,7 +28,7 @@ class _SignUpState extends State<SignUp> {
       child: TextFormField(
         controller: _controller3,
         validator: ((value) {
-          if (value!.isEmpty || !RegExp(r'^[\w]+$').hasMatch(value)) {
+          if (value!.isEmpty) {
             return "Enter your name correctly";
           } else
             return null;
@@ -89,14 +93,18 @@ class _SignUpState extends State<SignUp> {
       margin: EdgeInsets.symmetric(horizontal: 30),
       child: TextFormField(
         validator: (value) {
-          if (value!.isEmpty ||
-              !(RegExp(r'^[a-z A-Z]{1}[\w]*$')).hasMatch(value)) {
+          if (value!.isEmpty
+              // ||
+
+              //(RegExp(r'^[a-z A-Z]{1}[\w]*$')).hasMatch(value)
+              ) {
             return ("Enter Correct Password");
           } else {
             return null;
           }
         },
         controller: _controller5,
+        obscureText: true,
         maxLines: 1,
         // autovalidateMode: AutovalidateMode.always,
         decoration: InputDecoration(
@@ -226,6 +234,8 @@ class _SignUpState extends State<SignUp> {
                                 address: newAddress,
                                 phone: newPhone,
                                 password: newPassword);
+                            signUp();
+
                             SnackBar snackbar = SnackBar(
                                 content: Text(
                                     "Name ${_controller3.value.text} \n email ${_controller4.value.text}"));
@@ -243,5 +253,29 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  Future signUp() async {
+    try {
+      UserCredential authusers =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _controller4.text,
+        password: _controller5.text,
+      );
+      String userID = authusers.user!.uid;
+      addUserToDB(id: userID, name: _controller3.text, email: _controller4.text, phone: _controller6.text, address: _controller7.text);
+      LoggedInUserData.userID = authusers.user!.uid;
+      var docSnapshot = await FirebaseFirestore.instance.collection('users').doc(LoggedInUserData.userID).get();
+      if (docSnapshot.exists) {
+        Map<String, dynamic>? data = docSnapshot.data();
+        LoggedInUserData.userName = data?['name'];
+        LoggedInUserData.userPhoneNumber = data?['phone'];
+        LoggedInUserData.userEmail = data?['email'];
+        LoggedInUserData.userAddress = data?['address'];
+      }
+      GoRouter.of(context).go('/userprofile');
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
   }
 }
