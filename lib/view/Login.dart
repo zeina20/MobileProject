@@ -216,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
       var docSnapshot = await FirebaseFirestore.instance.collection('users').doc(LoggedInUserData.userID).get();
       if (docSnapshot.exists) {
         Map<String, dynamic>? data = docSnapshot.data();
-        LoggedInUserData.userID = data?['id'];
+        //LoggedInUserData.userID = data?['id'];
         LoggedInUserData.userName = data?['name'];
         LoggedInUserData.userPhoneNumber = data?['phone'];
         LoggedInUserData.userEmail = data?['email'];

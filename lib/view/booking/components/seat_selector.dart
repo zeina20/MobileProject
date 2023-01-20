@@ -1,9 +1,14 @@
 import 'package:MobileProject/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'build_chairs.dart';
 
 class SeatSelector extends StatefulWidget {
+  final moveId;
+
+   SeatSelector({required this.moveId}); //movie id
+
   @override
   _SeatSelectorState createState() => _SeatSelectorState();
 }
@@ -133,7 +138,7 @@ return  Positioned(
                 crossAxisSpacing: 4.0,
                 mainAxisSpacing: 4.0),
             itemBuilder: (BuildContext context, int index) {
-              return SeatSelectorWidget(menu[index].title);
+              return SeatSelectorWidget(menu[index].title, widget.moveId);
 
 
 
@@ -175,8 +180,9 @@ return  Positioned(
 
 class SeatSelectorWidget extends StatefulWidget {
   String menuTitle;
+  String moveId;
 
-  SeatSelectorWidget (this.menuTitle);
+  SeatSelectorWidget (this.menuTitle, this.moveId);
 
   @override
   _SeatSelectorWidgetState createState() => _SeatSelectorWidgetState();
@@ -184,6 +190,23 @@ class SeatSelectorWidget extends StatefulWidget {
 
 class _SeatSelectorWidgetState extends State<SeatSelectorWidget> {
   bool seat = true;
+  // int price = 0;
+
+  Future<void> delete(String id) async {
+    await FirebaseFirestore.instance.collection('seats').doc(widget.moveId).update({id: FieldValue.delete()});
+  }
+
+  Future<void> add(String id) async {
+    var docRef = FirebaseFirestore.instance.collection('seats').doc(widget.moveId);
+
+docRef.get().then((doc) => {
+    if (doc.exists) {
+      docRef.update({id:true})
+    } else {
+      docRef.set({id:true})
+    }
+});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -203,10 +226,19 @@ class _SeatSelectorWidgetState extends State<SeatSelectorWidget> {
                       color: seat ? Colors.black : Colors.yellow,
                       
                       onPressed: () {
-                        setState(() {
-                              seat = !seat;
+
+                      if (seat) {
+                        add(widget.menuTitle);
+                        // price = price + 20;
+                      } else {
+                        delete(widget.menuTitle);
+                        // price = price - 20;
+                      }
+
+                      setState(() {
+                            seat = !seat;
                       });
-                           },
+                 },
                             icon: const Icon(Icons.event_seat)
                         //menu[index].icon,
                         //size: 30,
@@ -221,8 +253,10 @@ class _SeatSelectorWidgetState extends State<SeatSelectorWidget> {
                         style: TextStyle(
                             fontSize: 10,
                             color: Colors.black87),
-                      )
+                      ),
+                     
                     ],
+                      // Text("Total:", style: TextStyle(color: white, fontSize: 18)),
                   ),
                 ),
               );

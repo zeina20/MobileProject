@@ -14,6 +14,7 @@ void addUserToDB({
 }) async {
   final docUser = FirebaseFirestore.instance.collection('users').doc(id);
   final user = Users(
+    id:id,
     name: name,
     email: email,
     phone: phone,

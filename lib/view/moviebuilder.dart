@@ -6,13 +6,14 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class moviebuilder extends StatelessWidget {
+  final id;
   final title;
   final image;
   final rating;
   final index;
 
   const moviebuilder(
-      {super.key, this.title, this.image, this.rating, this.index});
+      {super.key, this.id, this.title, this.image, this.rating, this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +119,7 @@ class moviebuilder extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.w500),
                           ),
-                          onPressed: () => GoRouter.of(context).go('/Booking/$title'),
+                          onPressed: () => GoRouter.of(context).go('/Booking/$title/$id'),
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Color(0xFFF05454)),
                           icon: Icon(

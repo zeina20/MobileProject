@@ -1,4 +1,4 @@
-package com.cba.project
+package com.CBA.project
 
 import io.flutter.embedding.android.FlutterActivity
 

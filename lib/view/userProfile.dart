@@ -23,8 +23,30 @@ class _userProfileState extends State<userProfile> {
  
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth auth = FirebaseAuth.instance;
     return SafeArea(
+      
       child: Scaffold(
+        appBar: AppBar(
+          actions: <Widget>[
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.indigo,
+              ),
+              onPressed: () {
+                 auth.signOut();
+                GoRouter.of(context).go('/login');
+              },
+              child: Text("log out"),
+            ),
+          ],
+        leading: IconButton(
+            onPressed: () => GoRouter.of(context).go('/'),
+            icon: Icon(Icons.arrow_back)),
+        title: Text('Users Page'),
+        backgroundColor: Color(0xFF363f93),
+      ),
+      
         body: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
@@ -90,7 +112,10 @@ class _userProfileState extends State<userProfile> {
                           
                         CircleAvatar(radius: 30,
                             backgroundColor: Color(0xffD8D8D8),
-                          child: IconButton(onPressed: null, icon: Icon(Icons.edit) )),
+                          child: IconButton( onPressed: () =>
+                                      GoRouter.of(context).go('/editProfile'), 
+
+                          icon: Icon(Icons.edit) )),
                        
                         Builder(
                             builder: (context) => ElevatedButton(

@@ -37,6 +37,10 @@ class Homes extends StatelessWidget {
                 title: const Text('Admin'),
                 onTap: () => GoRouter.of(context).go('/postadmin'),
               ),
+               ListTile(
+                title: const Text('Profile'),
+                onTap: () => GoRouter.of(context).go('/userProfile'),
+              ),
             ],
           ),
         ),

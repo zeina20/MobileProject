@@ -1,4 +1,5 @@
 import 'package:MobileProject/view/booking/booking_screen.dart';
+import 'package:MobileProject/view/editProfile.dart';
 import 'package:MobileProject/view/userProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -42,11 +43,10 @@ class MyApp extends StatelessWidget {
               ),
           GoRoute(
               // path: 'Detail/:index',
-              path: 'Booking/:title',
+              path: 'Booking/:title/:id',
               builder: (BuildContext context, GoRouterState state) =>
                   BookingScreen(
-                      title:
-                          state.params["title"]) //index:state.params["index"]),
+                      title: state.params["title"], id: state.params["id"]) //index:state.params["index"]),
               ),
           GoRoute(
               // path: 'Detail/:index',
@@ -72,6 +72,12 @@ class MyApp extends StatelessWidget {
               builder: (BuildContext context, GoRouterState state) =>
                   userProfile() //index:state.params["index"]),
               ),
+              //  GoRoute(
+              // // path: 'Detail/:index',
+              // path: 'editProfile',
+              // builder: (BuildContext context, GoRouterState state) =>
+              //     editprofile() //index:state.params["index"]),
+              // ),
 
           // GoRoute(
           //     path: 'home/:selectedIndex',

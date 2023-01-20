@@ -27,27 +27,27 @@ class PayButton extends StatelessWidget {
                         border: Border.all(color: white),
                       ),
                     ),
-                    Text(
-                      "Available",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Container(
-                      height: 15.0,
-                      width: 15.0,
-                      margin: EdgeInsets.only(right: 8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: white
-                      ),
-                    ),
+                    // Text(
+                    //   "Available",
+                    //   style: TextStyle(
+                    //     fontSize: 12,
+                    //     color: white,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // )
+                //   ],
+                // ),
+                // Row(
+                //   children: [
+                //     Container(
+                //       height: 15.0,
+                //       width: 15.0,
+                //       margin: EdgeInsets.only(right: 8.0),
+                //       decoration: BoxDecoration(
+                //         borderRadius: BorderRadius.circular(10.0),
+                //         color: white
+                //       ),
+                //     ),
                     Text(
                       "Resvered",
                       style: TextStyle(
@@ -106,10 +106,13 @@ class PayButton extends StatelessWidget {
                 //   borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0))
                 // ),
                 
-                child: Container(
-                  
-                  color: Color.fromARGB(255, 226, 153, 44),
-                  width: size.width * 0.45,
+                child: Row(
+                  children: [
+                    
+                    SizedBox(width: 190),
+                    Container(
+                     color: Color.fromARGB(255, 226, 153, 44),
+                  width: size.width * 0.35,
                   height: size.width * 0.08,
                   child: Center(
                     child: Text(
@@ -121,6 +124,9 @@ class PayButton extends StatelessWidget {
                       ),
                     ),
                   ),
+
+                  )],
+                 
                 ),
               )
             ],

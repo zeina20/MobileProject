@@ -45,6 +45,7 @@ class _DetailState extends State<Detail> {
                   Map<String, dynamic>? filmData = MoviesDataServices.MoviesDataList[index].data() as Map<String, dynamic>?;
                   print(filmData!["name"]);
                   return moviebuilder(
+                    id: filmData['id'],
                     index: index,
                     title: filmData['name'],
                     image: filmData['image'],
